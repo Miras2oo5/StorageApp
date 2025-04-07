@@ -1,8 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.storageapp">
 
     <application
         android:allowBackup="true"
@@ -15,9 +13,8 @@
         android:theme="@style/Theme.StorageApp"
         tools:targetApi="31">
 
-        <!-- Декларация активности LoginActivity -->
-        <activity
-            android:name=".LoginActivity"
+        <!-- Регистрация LoginActivity как основной активности -->
+        <activity android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,11 +22,12 @@
             </intent-filter>
         </activity>
 
-        <!-- Декларация активности SignUpActivity -->
-        <activity
-            android:name=".SignUpActivity"
-            android:exported="true">
-        </activity>
+        <!-- Регистрация MainActivity -->
+        <activity android:name=".MainActivity"
+            android:exported="true" />
+
+        <!-- Регистрация SignUpActivity -->
+        <activity android:name=".SignUpActivity" />
 
     </application>
 
