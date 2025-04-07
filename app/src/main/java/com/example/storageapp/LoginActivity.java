@@ -1,4 +1,4 @@
-package com.example.loginapp;
+package com.example.storageapp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edUsername, edPassword;
     private Button btnLogin, btnSignUp;
 
-    private final String CREDENTIAL_SHARED_PREF = "user_pref";
+    private final String CREDENTIAL_SHARED_PREF = "user_credentials";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,24 +28,23 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btn_login);
         btnSignUp = findViewById(R.id.btn_signup);
 
-        btnSignUp.setOnClickListener(view -> {
+        btnSignUp.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(intent);
         });
 
-        btnLogin.setOnClickListener(view -> {
+        btnLogin.setOnClickListener(v -> {
             SharedPreferences credentials = getSharedPreferences(CREDENTIAL_SHARED_PREF, Context.MODE_PRIVATE);
             String savedUsername = credentials.getString("Username", null);
             String savedPassword = credentials.getString("Password", null);
 
-            String enteredUsername = edUsername.getText().toString();
-            String enteredPassword = edPassword.getText().toString();
+            String inputUsername = edUsername.getText().toString();
+            String inputPassword = edPassword.getText().toString();
 
-            if (savedUsername != null && savedPassword != null &&
-                    savedUsername.equals(enteredUsername) && savedPassword.equals(enteredPassword)) {
-                Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+            if (savedUsername != null && savedUsername.equals(inputUsername) && savedPassword != null && savedPassword.equals(inputPassword)) {
+                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

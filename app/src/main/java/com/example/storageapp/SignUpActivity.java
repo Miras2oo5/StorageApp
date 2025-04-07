@@ -1,4 +1,4 @@
-package com.example.loginapp;
+package com.example.storageapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,7 +14,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText edUsername, edPassword, edConfirmPassword;
     private Button btnCreateUser;
 
-    private final String CREDENTIAL_SHARED_PREF = "user_pref";
+    private final String CREDENTIAL_SHARED_PREF = "user_credentials";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,22 +26,18 @@ public class SignUpActivity extends AppCompatActivity {
         edConfirmPassword = findViewById(R.id.ed_confirm_pwd);
         btnCreateUser = findViewById(R.id.btn_create_user);
 
-        btnCreateUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String strPassword = edPassword.getText().toString();
-                String strConfirmPassword = edConfirmPassword.getText().toString();
-                String strUsername = edUsername.getText().toString();
+        btnCreateUser.setOnClickListener(v -> {
+            String username = edUsername.getText().toString();
+            String password = edPassword.getText().toString();
+            String confirmPassword = edConfirmPassword.getText().toString();
 
-                if (strPassword.equals(strConfirmPassword)) {
-                    SharedPreferences credentials = getSharedPreferences(CREDENTIAL_SHARED_PREF, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = credentials.edit();
-                    editor.putString("Username", strUsername);
-                    editor.putString("Password", strPassword);
-                    editor.commit();
-
-                    finish(); // Закрытие экрана регистрации после сохранения данных
-                }
+            if (password.equals(confirmPassword)) {
+                SharedPreferences credentials = getSharedPreferences(CREDENTIAL_SHARED_PREF, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = credentials.edit();
+                editor.putString("Username", username);
+                editor.putString("Password", password);
+                editor.apply();
+                finish(); // Закрыть активность регистрации после успешной регистрации
             }
         });
     }
